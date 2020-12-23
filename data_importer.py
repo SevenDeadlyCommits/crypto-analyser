@@ -1,6 +1,5 @@
 import pandas
 
-
 class DataImporter:
 
     @staticmethod
