@@ -1,10 +1,16 @@
 import pandas
 import requests
+import os.path
+from os import path
 
 class DataImporter:
     url = 'https://www.cryptodatadownload.com/cdd/'
     file_prefix = 'Bittrex_'
     end = 'USD_1h.csv'
+
+    def __init__(self):
+        if path.exists('data') == False:
+            os.mkdir('data')
 
     def import_data_frame_from_csv(self, path):
         return pandas.read_csv(path)
