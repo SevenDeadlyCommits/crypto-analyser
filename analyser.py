@@ -5,12 +5,13 @@ import coin_data
 import simple_result_data
 import processor
 import data_importer
+import constants
 
 running = True
 
 def process_args():
     parser = argparse.ArgumentParser(description='Analyse historic crytpo data')
-    parser.add_argument('coin', metavar='-c', type=str,
+    parser.add_argument('coin', metavar='COIN', type=str, choices=constants.COIN_SELECTION,
                         help='The cryptocurrency to analyse')
 
     return parser.parse_args()
