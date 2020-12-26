@@ -8,25 +8,25 @@ import data_importer
 
 running = True
 
-def ProcessArgs():
+def process_args():
     parser = argparse.ArgumentParser(description='Analyse historic crytpo data')
     parser.add_argument('coin', metavar='-c', type=str,
                         help='The cryptocurrency to analyse')
 
     return parser.parse_args()
 
-def Run():
-    args = ProcessArgs()
+def run():
+    args = process_args()
 
     importer = data_importer.DataImporter()
-    data_frame = importer.GetData(args.coin)
+    data_frame = importer.get_data(args.coin)
     data_processor = processor.Processor()
-    result = data_processor.ProcessSimple(data_frame)
+    result = data_processor.process_simple(data_frame)
 
     print('Simple Results:\n' + str(result))
 
 def main():
-    Run()
+    run()
     
     # lows = data_processor.GetColumn(data_frame, 'Low')
     # highs = data_processor.GetColumn(data_frame, 'High')
