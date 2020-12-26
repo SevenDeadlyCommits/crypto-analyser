@@ -73,6 +73,8 @@ docs/_build/
 
 # analyser output
 output/
+# data download directory
+data/*
 
 # PyBuilder
 .pybuilder/
