@@ -10,7 +10,7 @@ import plotter
 
 def process_args():
     parser = argparse.ArgumentParser(description='Analyse historic crytpo data')
-    parser.add_argument('coin', metavar='COIN', type=str, choices=constants.COIN_SELECTION,
+    parser.add_argument('-c', '--coins', nargs='+', type=str, choices=constants.COIN_SELECTION,
                         help='The cryptocurrency to analyse')
 
     parser.add_argument('-p', '--plot-type', type=str, choices=plot_options.valid_modes.keys(),
@@ -29,17 +29,21 @@ def run():
     args = process_args()
 
     importer = data_importer.DataImporter()
-    data_frame = importer.get_data(args.coin)
     data_processor = processor.Processor()
 
-    if args.plot_type:
-        options = plot_options.PlotOptions(args.coin, args.plot_type, args.show, (args.no_save == False))
-        plot = plotter.Plotter(data_frame, options)
-        plot.plot_results()
+    data_frames = []
+    for coin in args.coins:
+        data_frames.append(importer.get_data(coin))
 
     if args.info_type:
-        result = data_processor.process_simple(data_frame)
-        print('Simple Results:\n' + str(result))
+        results = data_processor.process_simple(data_frames)
+        for i in range(0, len(args.coins)):
+            print(args.coins[i], 'Info:\n' + str(results[i]))
+
+    if args.plot_type:
+        options = plot_options.PlotOptions(args.coins, args.plot_type, args.show, (args.no_save == False))
+        plot = plotter.Plotter(data_frames, options)
+        plot.plot_results()
 
 def main():
     run()

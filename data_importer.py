@@ -24,7 +24,7 @@ class DataImporter:
             if valid:
                 valid = (os.path.getctime(filename) <= valid_time)
             return valid
-        return False
+        return True
 
     def get_data(self, coin):
         filename = self.file_prefix + coin + self.end

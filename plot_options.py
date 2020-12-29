@@ -9,7 +9,7 @@ valid_modes = {
 
 @dataclass
 class PlotOptions():
-    coin: str
+    coins: list
     mode: str
     show: bool
     save: bool
