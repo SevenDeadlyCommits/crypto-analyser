@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt
+import os
 
 import processor
 import plot_options
@@ -23,6 +24,8 @@ class Plotter:
 
     def __handle_generic_options__(self):
         if self.options.save:
+            if os.path.exists('output') == False:
+                os.mkdir('output')
             plt.savefig('output/' + self.options.coin + 'USD_' + self.options.mode.upper() + '.png')
         if self.options.show:
             plt.show()
