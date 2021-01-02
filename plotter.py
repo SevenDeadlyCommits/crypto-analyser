@@ -26,7 +26,10 @@ class Plotter:
         if self.options.save:
             if os.path.exists('output') == False:
                 os.mkdir('output')
-            plt.savefig('output/' + self.options.coins + 'USD_' + self.options.mode.upper() + '.png')
+            coins_name = ''
+            for coin in self.options.coins:
+                coins_name += coin
+            plt.savefig('output/' + coins_name + '_USD_' + self.options.mode.upper() + '.png')
         if self.options.show:
             plt.show()
 
