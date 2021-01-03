@@ -74,16 +74,18 @@ class Plotter:
         date_strs = []
         for data_frame in self.data_frames:
             highs.append(self.data_processor.get_column(data_frame, 'High'))
-            if len(date_strs) == 0:
-                date_strs = self.data_processor.get_column(data_frame, 'Date')
-        dates = []
-        for date in date_strs:
-            date_str = date.split()[0]
-            dates.append(datetime.datetime.strptime(date_str,"%Y-%m-%d").date())
+            date_strs.append(self.data_processor.get_column(data_frame, 'Date'))
+        dates_list = []
+        for date_array in date_strs:
+            dates = []
+            for date in date_array:
+                date_str = date.split()[0]
+                dates.append(datetime.datetime.strptime(date_str,"%Y-%m-%d").date())
+            dates_list.append(dates)
         # create plot
         plt.title('Highs ' + self.__get_plot_date_range_str_())
         for i in range(0,len(self.options.coins)):
-            plt.plot(dates, highs[i], label=self.options.coins[i])
+            plt.plot(dates_list[i], highs[i], label=self.options.coins[i])
         ax = plt.gca()
         locator = mdates.MonthLocator()
         ax.xaxis.set_major_locator(locator)
