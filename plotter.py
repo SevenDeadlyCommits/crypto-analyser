@@ -87,7 +87,14 @@ class Plotter:
         for i in range(0,len(self.options.coins)):
             plt.plot(dates_list[i], highs[i], label=self.options.coins[i])
         ax = plt.gca()
-        locator = mdates.MonthLocator()
+        
+        time_diff = self.options.date_to - self.options.date_from
+        if time_diff.days >= 365:
+            locator = mdates.YearLocator()
+        elif time_diff.days >= 27:
+            locator = mdates.MonthLocator()
+        else:
+            locator = mdates.DayLocator()
         ax.xaxis.set_major_locator(locator)
         fig = plt.gcf()
         fig.set_size_inches(16, 8)
