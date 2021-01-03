@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import datetime
 
 valid_modes = {
     'highs':'highs', 
@@ -13,3 +14,6 @@ class PlotOptions():
     mode: str
     show: bool
     save: bool
+    date_from: datetime
+    date_to: datetime
+

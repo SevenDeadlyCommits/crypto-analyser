@@ -1,4 +1,5 @@
 import argparse
+import datetime
 
 import coin_data
 import simple_result_data
@@ -23,6 +24,10 @@ def process_args():
     parser.add_argument('-i', '--info-type', required=False, type=str, choices=constants.INFO_TYPES,
                         help='The type of information to get out of the analyser')
 
+    # date range
+    parser.add_argument('-f', '--date-from', type=lambda s: datetime.datetime.strptime(s, '%Y-%m-%d'))
+    parser.add_argument('-t', '--date-to', type=lambda s: datetime.datetime.strptime(s, '%Y-%m-%d'))
+
     return parser.parse_args()
 
 def run():
@@ -41,7 +46,7 @@ def run():
             print(args.coins[i], 'Info:\n' + str(results[i]))
 
     if args.plot_type:
-        options = plot_options.PlotOptions(args.coins, args.plot_type, args.show, (args.no_save == False))
+        options = plot_options.PlotOptions(args.coins, args.plot_type, args.show, (args.no_save == False), args.date_from, args.date_to)
         plot = plotter.Plotter(data_frames, options)
         plot.plot_results()
 

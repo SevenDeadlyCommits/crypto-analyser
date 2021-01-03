@@ -41,6 +41,9 @@ class DataImporter:
             with open(filename_with_path, 'r') as fin:
                 data = fin.read().splitlines(True)
             with open(filename_with_path, 'w') as fout:
+                # replace spaces to allow easy filtering as pandas does not 
+                # support filtering with column names containing spaces
+                data[1] = data[1].replace(' ', '_')
                 fout.writelines(data[1:])
 
         return self.import_data_frame_from_csv(filename_with_path)
